@@ -1,10 +1,9 @@
 package com.frasato.leadsapp.ui.home
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,12 +25,19 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()){
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFF020617)
     ) {
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState())
-                .padding(0.dp, 35.dp, 0.dp, 15.dp)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize().padding(top = 35.dp, bottom = 15.dp)
         ) {
-            if(loading){ Text("Carregando...") }
-            leads.forEach { LeadCard(it) }
+            if(loading){
+                item {
+                    Text(
+                        text = "Carregando...",
+                        color = Color.White,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+            }
+            items(leads) {lead -> LeadCard(lead)}
         }
     }
 }
