@@ -6,13 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.frasato.leadsapp.data.model.Lead
-import com.frasato.leadsapp.data.repository.LeadRepository
+import com.frasato.leadsapp.domain.usecase.LeadUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel: ViewModel() {
 
-    private val repository = LeadRepository()
-
+    private val leadUseCase = LeadUseCase()
     var leads by mutableStateOf<List<Lead>>(emptyList())
     var isLoading by mutableStateOf(false)
 
@@ -21,7 +20,7 @@ class HomeViewModel: ViewModel() {
             isLoading = true
 
             try{
-                leads = repository.getLeads()
+                leads = leadUseCase.getLeads()
             }catch(error: Exception){
                 error.printStackTrace()
             }
