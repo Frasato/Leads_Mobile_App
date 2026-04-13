@@ -8,5 +8,4 @@ data class Lead(
     val cpf: String,
     val city: String,
     val usedMedicine: String,
-    val addAt: String
 )
